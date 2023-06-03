@@ -1,5 +1,5 @@
 "use strict";
-// A function that automatically leaves an internal note on the ticket
+// A function that automatically leaves an internal note on the ticket.
 const axios = require('axios');
 const authorizationToken = 'Basic a292YWxvbGVnazE4QGdtYWlsLmNvbTpiZjBmNDczYzM3YWRjYWI4ZWUyZTBhMjY4YjRlMGM2MzcxM2NlNjBhNzQxZmNmNWVkZmExOTdmNTRlNzRiMjEw';
 const ticket_id = 39159802;
