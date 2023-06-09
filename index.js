@@ -18,7 +18,8 @@ const getOptions = {
 axios
   .request(getOptions)
   .then(function (response) {
-    receiverId = response.data.requester.id
+    let receiverId = response.data.requester.id
+    console.log(receiverId)
   })
   .catch(function (error) {
     console.error(error.message);
@@ -35,7 +36,7 @@ const sendEmail = {
     },
     data: {
       channel: 'email',
-      receiver: receiverId,
+      receiver: {id: receiverId},
       sender: {id: 108580135},
       source: {
         to: [{address: 'marcelavladica@gmail.com', name: 'Test_0906'}],
@@ -56,9 +57,10 @@ const sendEmail = {
     .request(sendEmail)
     .then(function (response) {
       console.log(response.data);
+      console.log(receiverId)
     })
     .catch(function (error) {
-      console.error(error);
+      console.error(error.message);
     });
 
 
