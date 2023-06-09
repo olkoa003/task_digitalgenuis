@@ -1,12 +1,33 @@
 "use strict";
 // A function that sends a new email reply on the ticket to customer's email address
 const axios = require('axios');
-const authorizationToken = 'Basic a292YWxlbmtvb2xlMTJAZ21haWwuY29tOjQyMDk0NjNmODM2YThjZjk4ODgzNmViNzgzM2U1YTljNzk1NzVkY2JlMzYxMGIyNDJlMWUyNWFiOWE2YzhlNjA=';
-const ticket_id = 39144077;
+const authorizationToken = 'Basic bWFyY2VsYXZsYWRpY2FAZ21haWwuY29tOjY0MTdkNTg0MmZmODYzN2YzZWZhZDI0ZDI3YWY3ZTYwYmQ2ZGZlMjJmZGM4OGZiMGJmMzc5ZWRjYTY1NmFjZWM=';
+const ticket_id = 40108485;
+let receiverId;
+
+// A func that retrieves a receiverId that is then utilized in the POST method
+const getOptions = {
+  method: 'GET',
+  url: `https://test-090623.gorgias.com/api/tickets/${ticket_id}`,
+  headers: {
+    accept: 'application/json',
+    authorization: authorizationToken
+  }
+};
+
+axios
+  .request(getOptions)
+  .then(function (response) {
+    receiverId = response.data.requester.id
+  })
+  .catch(function (error) {
+    console.error(error.message);
+  });
+
 
 const sendEmail = {
     method: 'POST',
-    url: `https://ole2-store.gorgias.com/api/tickets/${ticket_id}/messages?action=retry`,
+    url: `https://test-090623.gorgias.com/api/tickets/${ticket_id}/messages?action=retry`,
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
@@ -14,11 +35,11 @@ const sendEmail = {
     },
     data: {
       channel: 'email',
-      receiver: {id: 106510022},
-      sender: {id: 106507816},
+      receiver: receiverId,
+      sender: {id: 108580135},
       source: {
-        to: [{address: 'okovalenko070@gmail.com', name: 'Oleg Kovalenko'}],
-        from: {name: 'Gorgias Bot', address: 'pqe41g424pd58yl3@email.gorgias.com'},
+        to: [{address: 'marcelavladica@gmail.com', name: 'Test_0906'}],
+        from: {name: 'Gorgias Bot', address: 'nxy04g6r7xjgzqm2@email.gorgias.com'},
         type: 'email'
       },
       via: 'api',
@@ -39,4 +60,7 @@ const sendEmail = {
     .catch(function (error) {
       console.error(error);
     });
+
+
+
 
