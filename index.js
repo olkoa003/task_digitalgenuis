@@ -57,7 +57,6 @@ const sendEmail = {
     .request(sendEmail)
     .then(function (response) {
       console.log(response.data);
-      console.log(receiverId)
     })
     .catch(function (error) {
       console.error(error.message);
